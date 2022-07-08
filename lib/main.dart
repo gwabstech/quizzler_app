@@ -1,6 +1,5 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:quizzler_app/questions_and_answers.dart';
 
 void main() => runApp(Quizzler());
 
@@ -31,17 +30,18 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scoreKeeper = [];
-  List<String> questions=[
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.',
+  List<QuestionsAndAnswers> questions_and_answes=[
+    QuestionsAndAnswers(q: 'You can lead a cow down stairs but not up stairs.', a: false),
+    QuestionsAndAnswers(q:  'Approximately one quarter of human bones are in the feet.', a: true),
+    QuestionsAndAnswers(q: 'A slug\'s blood is green.', a: true)
   ];
-  List<bool> answers = [false,true,true];
+ // List<bool> answers = [false,true,true];
 
+  var currentQuestions = 0;
   void updateButton(Icon icon){
     setState((){
       scoreKeeper.add(icon);
-      if(currentQuestions >= questions.length-1){
+      if(currentQuestions >= questions_and_answes.length-1){
         currentQuestions = 0;
       }else{
         currentQuestions+=1;
@@ -49,7 +49,7 @@ class _QuizPageState extends State<QuizPage> {
 
     });
   }
-  var currentQuestions = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,7 +62,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[currentQuestions],
+                questions_and_answes[currentQuestions].questionsText,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -87,8 +87,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
 
-                bool correct_answers = answers[currentQuestions];
-                if(correct_answers == true){
+                bool correctAnswers = questions_and_answes[currentQuestions].questionAnswers;
+                if(correctAnswers == true){
                   print("You are rigth");
                   updateButton(const Icon(
                     Icons.check,
@@ -121,8 +121,8 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
 
-                bool correct_answers = answers[currentQuestions];
-                if(correct_answers == false){
+                bool correctAnswers = questions_and_answes[currentQuestions].questionAnswers;
+                if(correctAnswers == false){
                   print("You are rigth");
                   updateButton(const Icon(
                     Icons.check,
