@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quizzler_app/questions_and_answers.dart';
+import 'package:quizzler_app/QuizBrain.dart';
 
+QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
@@ -30,18 +31,14 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scoreKeeper = [];
-  List<QuestionsAndAnswers> questions_and_answes=[
-    QuestionsAndAnswers(q: 'You can lead a cow down stairs but not up stairs.', a: false),
-    QuestionsAndAnswers(q:  'Approximately one quarter of human bones are in the feet.', a: true),
-    QuestionsAndAnswers(q: 'A slug\'s blood is green.', a: true)
-  ];
+
  // List<bool> answers = [false,true,true];
 
   var currentQuestions = 0;
   void updateButton(Icon icon){
     setState((){
       scoreKeeper.add(icon);
-      if(currentQuestions >= questions_and_answes.length-1){
+      if(currentQuestions >= quizBrain.getQuestionLength()-1){
         currentQuestions = 0;
       }else{
         currentQuestions+=1;
@@ -62,7 +59,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions_and_answes[currentQuestions].questionsText,
+                quizBrain.getQuestions(currentQuestions),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -87,15 +84,15 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
 
-                bool correctAnswers = questions_and_answes[currentQuestions].questionAnswers;
+                bool correctAnswers = quizBrain.getQuestionAnswer(currentQuestions);
                 if(correctAnswers == true){
-                  print("You are rigth");
+                 // print("You are rigth");
                   updateButton(const Icon(
                     Icons.check,
                     color: Colors.green,
                   ));
                 }else{
-                  print("You are wrong");
+                 // print("You are wrong");
                   updateButton(const Icon(
                     Icons.close,
                     color: Colors.red,
@@ -121,15 +118,15 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
 
-                bool correctAnswers = questions_and_answes[currentQuestions].questionAnswers;
+                bool correctAnswers = quizBrain.getQuestionAnswer(currentQuestions);
                 if(correctAnswers == false){
-                  print("You are rigth");
+                 // print("You are rigth");
                   updateButton(const Icon(
                     Icons.check,
                     color: Colors.green,
                   ));
                 }else{
-                  print("You are rigth");
+                //  print("You are rigth");
                   updateButton(const Icon(
                     Icons.close,
                     color: Colors.red,

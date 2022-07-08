@@ -1,9 +1,9 @@
-class QuestionsAndAnswers{
+class Question{
 
   late String questionsText;
   late bool questionAnswers;
 
-  QuestionsAndAnswers({required String q, required bool a}){
+  Question( String q,  bool a){
     questionsText = q;
     questionAnswers = a;
 
