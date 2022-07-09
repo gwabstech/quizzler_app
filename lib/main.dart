@@ -79,7 +79,7 @@ class _QuizPageState extends State<QuizPage> {
     Alert(
       context: context,
       type: AlertType.success,
-      onWillPopActive: false,
+      onWillPopActive: true,
       title: "Finished!",
       desc:
           'You\'ve reached the end of the quiz with the point $point . will you Like to Restart',
